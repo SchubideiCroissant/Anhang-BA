@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+</head>
+<body class="body">
+  
+  <div id="loader" style="
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#065f46 0%,#10b981 50%,#ecfdf5 100%);
+    color:white;font-family:sans-serif; font-size: 30px;">
+    Lädt...
+  </div>
+
+  <div id="app" style="opacity:0;transition:opacity .4s ease;">
+
+    <div class="layout">
+
+      <!-- Side Navigation -->
+      <nav class="sidebar">
+        <h2 class="sidebar-title">Menü</h2>
+        <ul>
+          <li class="sidebar-item sidebar-item-active" data-page="home" onclick="showPage('home')">Generator</li>
+          <li class="sidebar-item" data-page="schemas" onclick="showPage('schemas')">Schemas</li>
+          <li class="sidebar-item" data-page="settings" onclick="showPage('settings')">Einstellungen</li>
+          <li class="sidebar-item" data-page="stats" onclick="showPage('stats')">Statistik</li>
+          <li class="sidebar-item" data-page="docs" onclick="showPage('docs')">Dokumentation</li>
+        </ul>
+
+      </nav>
+
+      <main class="main-content">
+        <button id="toggle-menu" class="btn-menu">☰</button>
+        <div id="home" class="page active">
+          <h1 class="page-title">Template Generator</h1>
+          <nav>
+            <!-- Backend Calls über pywebviewready (ts)-->
+            <!-- <button class ="btn-primary" data-action="number">Nummer</button> Backend Test -->
+            <button class ="btn-primary" data-action="create_ds">Erstelle Datastruktur</button> 
+                    
+          </nav>
+          <br> </br>
+          <div id="number-output"></div>
+        
+          <div class="form-section">
+            <div class="form-group">
+              <label class="form-label" for="input-node">Node Name</label>
+              <input type="text" id="input-node" class="form-input" placeholder="z.B. Node_3">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-area">Area</label>
+              <input type="text" id="input-area" class="form-input" placeholder="z.B. Valves">
+            </div>
+          </div>
+          <div class="file-selection-container">
+                <label for="mimic-file-select">Wähle eine Mimic-Datei:</label>
+                <select id="mimic-file-select">
+                    <option value="">-- Bitte zuerst Ordner wählen --</option>
+                </select>
+                
+          </div>
+
+          <div class="file-selection-container">
+                <label for="schema-file-select">Wähle eine Schema-Datei:</label>
+                <select id="schema-file-select">
+                    <option value="">-- Variante wählen --</option>
+                </select>
+                
+          </div>
+
+          <div class="file-selection-container">
+                <label for="type-select">Wähle einen Type:</label>
+                <select id="type-select">
+                    <option value="">-- Typ wählen --</option>
+                </select>
+                
+          </div>
+
+          <details class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 mb-4 overflow-hidden">
+            <summary class="p-4 cursor-pointer font-semibold text-white hover:bg-white/10 transition-colors list-none flex justify-between items-center">
+              <div class="flex items-center gap-3">
+                <!-- Kreuzschen um erweiterte Einstellungen zu nutzen-->
+                <input type="checkbox" id="use-advanced" class="w-4 h-4 rounded bg-white/20 border-white/30 accent-cyan-500">
+                <span>Erweiterte Einstellungen (Sortierung)</span>
+              </div>
+              <span class="text-xs">▼</span>
+            </summary>
+            
+            <div class="p-4 border-t border-white/10 bg-black/20">
+              <p class="text-sm text-white/70 mb-4 italic">
+                Trenne nach Datentyp für Variable (bei unterschiedlichen Geräten mit exakt gleichen Profibus-Variablen)
+              </p>
+
+              <div class="form-group">
+                <label class="form-label" for="datatype-select">Datentyp</label>
+                <select id="datatype-select" class="form-input">
+                  <option value="INT">INT (Ganzzahl)</option>
+                  <option value="REAL">REAL (Gleitkomma)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="input-variable">Variablenname</label>
+                <input type="text" id="input-variable" class="form-input" placeholder="z.B. AIN">
+              </div>
+            </div>
+          </details>
+        
+
+          <button class ="btn-primary" data-action="start-generator">Generiere Template</button> 
+
+        </div>
+            
+      
+        <div id="stats" class="page">
+          <h1 class="page-title">Statistik</h1>
+          
+          <div style="position: relative; height:40vh; width:80vw" ><canvas id="chart1"></canvas></div>
+          <div style="position: relative; height:40vh; width:80vw"><canvas id="pieChart">  </canvas></div>
+        </div>
+
+        <div id="settings" class="page">
+          <h1 class="page-title">Optionen</h1>
+
+          <div class="p-2">
+            <button class="btn-primary" data-action="directory1">In-Ordner wählen</button>
+            <div id="folder-output1">Name des ausgewählten In-Ordners (Template-Dateien)</div>
+          </div>
+
+          <div class="p-2">
+            <button class="btn-primary" data-action="directory2">Out-Ordner wählen</button>
+            <div id="folder-output2">Name des ausgewählten Out-Ordners</div>
+          </div>
+
+          <div class="p-2">
+            <button class="btn-primary" data-action="inputFile" >Profibus Datei wählen</button>
+            <div id="input-file-output">Name des Files</div>
+          </div>
+        </div>
+      
+        <div id="schemas" class="page">
+          <h1 class="page-title">Schema-Manager</h1>
+            <h2 class="h2-title">Neues Schema erstellen</h2>
+
+            <div class="form-section">
+              <div class="form-group">
+                <label class="form-label">Schema-Name</label>
+                <input id="schemaName" class="form-input" type="text" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Variante</label>
+                <input id="schemaVariant" class="form-input" type="text" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Aliases (Komma getrennt)</label>
+                <input id="schemaAliases" class="form-input" type="text" />
+              </div>
+
+              <button class="btn-primary" data-action="btnCreateSchema">
+                Schema erstellen
+              </button>
+
+              <pre id="schemaCreateStatus" class="schema-status mt-2"></pre>
+            </div>
+
+            
+
+            <h2 class="h2-title">Vorhandene Schemata</h2>
+            <div id="schemaList" class="schema-list"></div>
+
+        </div>
+
+        <div id="docs" class="page">
+          <h1 class="page-title leading-none">Dokumentation</h1>  
+          <div id="docs_md" class="markdown-body pb-5"></div>
+          <img src="/logo.png" alt="Logo" class="logo-img"/>
+        </div>
+
+      </main> 
+    </div>
+  </div>
+  <!-- Wichtig: type="module" -->
+  <script type="module" src="/src/main.ts"></script>
+
+  <!-- Ladezeit überbricken mit Prototype -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const loader = document.getElementById("loader");
+      const app = document.getElementById("app");
+      if (loader) loader.style.display = "none";
+      if (app) app.style.opacity = "1";
+    });
+  </script>
+
+</body>
+</html>

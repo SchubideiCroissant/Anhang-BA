@@ -1,0 +1,7 @@
+__pycache__
+venv311/
+node_modules/
+dist/
+.DS_Store
+schemas/
+package-lock.json

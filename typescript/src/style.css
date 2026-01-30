@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+.markdown-body {
+  background: transparent !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.markdown-body ul{
+  list-style: unset !important; 
+}
+
+.btn-primary {
+  @apply px-4 py-2 bg-pink-700 text-white rounded hover:bg-pink-800 text-2xl;
+}
+.btn-menu {
+  @apply px-4 py-2 bg-green-700 text-white rounded hover:bg-green-900 text-2xl;
+}
+
+.body {
+  @apply bg-gradient-to-r from-green-500 to-blue-700 text-white;
+}
+
+.page-title {
+  @apply text-3xl font-bold mb-6 text-white drop-shadow-sm tracking-wide pt-4 pb-2;
+}
+
+.h2-title {
+  @apply text-xl font-semibold mb-4 text-white
+         tracking-wide
+         border-b border-white/30
+         pb-1;
+}
+
+
+/* Container für Sidebar */
+.sidebar {
+  @apply bg-green-700 text-white w-64 flex-shrink-0 p-4 transition-all duration-500 ease-in-out;
+}
+
+.sidebar-title {
+  @apply text-2xl font-bold mb-6;
+}
+.layout {
+  @apply flex h-screen;
+}
+
+/* Menüeinträge */
+.sidebar-item {
+  @apply py-2 px-4 rounded hover:bg-green-900 cursor-pointer transition-colors;
+}
+
+/* Aktiver Menüpunkt */
+.sidebar-item-active {
+  @apply bg-green-900;
+}
+
+/* Sidebar eingeklappt */
+.sidebar.collapsed {
+  @apply -ml-64;  /* Sidebar aus dem Sichtbereich schieben */
+}
+
+/* Hauptinhalt rechts */
+.main-content {
+  @apply flex-1 p-6 overflow-y-auto transition-all duration-300;
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 0; /* wenn Sidebar eingeklappt ist */
+}
+
+/* Form Input */
+.form-section {
+  @apply bg-white/7 backdrop-blur-sm rounded-lg p-4 mb-6;
+}
+
+.form-group {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-semibold text-white mb-1;
+}
+
+.form-input {
+  @apply w-full px-3 py-2 rounded
+         bg-white/20 text-white
+         border border-white/30
+         placeholder-white/60
+         focus:outline-none focus:ring-2 focus:ring-cyan-400;
+}
+
+
+.schema-list {
+  @apply space-y-4;
+}
+
+.schema {
+  @apply border border-white/30 rounded-lg overflow-hidden
+         bg-white/10 backdrop-blur-sm;
+}
+
+.schema-header {
+  @apply flex items-center justify-between
+         px-4 py-3
+         bg-green-800/80 hover:bg-green-900
+         cursor-pointer transition-colors;
+}
+
+.schema-title {
+  @apply text-lg font-semibold text-white;
+}
+
+.schema-arrow {
+  @apply text-white transition-transform duration-300;
+}
+
+.variants {
+  @apply hidden bg-white/5;
+}
+
+.variant {
+  @apply flex items-center gap-6
+         px-6 py-2
+         border-t border-white/20
+         text-white
+         hover:bg-cyan-700/40
+         transition-colors;
+}
+
+
+.variant-name {
+  @apply font-medium whitespace-nowrap flex-none;
+}
+
+.variant-aliases {
+    @apply font-medium text-black
+           flex flex-wrap gap-5
+           text-center
+           flex-1 
+           min-w-0;
+}
+
+.variant-active {
+  @apply bg-cyan-700/60;
+}
+
+.variant-right {
+  @apply flex items-center gap-3 flex-1 justify-center;
+}
+
+.variant-delete {
+  @apply ml-auto cursor-pointer
+         text-base text-red-800
+         hover:text-red-500
+         px-2 py-1 rounded
+         hover:bg-red-900/30
+         transition-colors;
+}
+
+/* File Auswahl */
+/* Styling für die Dropdown-Container */
+.file-selection-container {
+  @apply mb-6;
+}
+
+/* Das eigentliche Select-Feld im Glas-Design */
+select {
+  @apply w-full px-3 py-2 rounded
+         bg-white/20 text-white
+         border border-white/30
+         focus:outline-none focus:ring-2 focus:ring-cyan-400
+         transition-all duration-200;
+  
+  background-color: rgba(6, 95, 70, 0.95); 
+  backdrop-filter: blur(8px);
+}
+
+select option {
+  @apply bg-green-900 text-white py-2;
+}
+
+.file-selection-container label {
+  @apply block text-sm font-semibold text-white mb-1;
+}
+
+
+.logo-img {
+  @apply w-40 h-10 rounded object-contain;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
