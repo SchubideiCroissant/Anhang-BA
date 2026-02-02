@@ -1,4 +1,4 @@
-# RpyDEXPI Untersuchung
+# pyDEXPI Untersuchung
 **Setup**:
 - `cd /dexpi`
 - create Python-Environment `python -m venv venv311`
