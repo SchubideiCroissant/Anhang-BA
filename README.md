@@ -1,6 +1,9 @@
 ## Anhang Bachelorarbeit Arthur Mehlgarten
 
-**3 Ordner**:
+**Übersicht**:
 - `example_files` - Beispiel Profibus-Datei und Template-Dateien
 - `exe` - kompiliertes Tool als ausführbares Programm
-- `typescript` - Source Code mit eigener README für Bedienung
+- `typescript` - Source Code des Tools mit eigener README für Bedienung
+
+**Extra**
+- `dexpi` - Source Code der pyDEXPI Untersuchung
