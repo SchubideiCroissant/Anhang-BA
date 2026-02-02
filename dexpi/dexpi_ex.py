@@ -640,10 +640,10 @@ G = graph(dexpi_model)
 print_tagged_items(cm)
 
 path_db = build_path_database(G, id_map, nozzle_map)
-#for tag in get_tagged_components(cm):
-#    print(f"\n{tag}")
-#    print("Downstream", path_db[tag]["downstream"])
-#    print("Upstream", path_db[tag]["upstream"])
+for tag in get_tagged_components(cm):
+    print(f"\n{tag}")
+    print("Downstream", path_db[tag]["downstream"])
+    print("Upstream", path_db[tag]["upstream"])
 
 
 # Andere Pfad Darstellung:
